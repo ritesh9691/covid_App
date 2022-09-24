@@ -1,9 +1,8 @@
 class WorlsStatsModel {
   WorlsStatsModel({
-      required this.updated,
-      required this.cases,
-      required this.todayCases,
-      required this.deaths,
+    required this.cases,
+    required this.todayCases,
+    required this.deaths,
     required this.todayDeaths,
     required  this.recovered,
     required  this.todayRecovered,

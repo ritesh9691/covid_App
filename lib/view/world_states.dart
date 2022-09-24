@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 import '../Services/states_services.dart';
+import 'countries_list.dart';
 
 class WorldStates extends StatefulWidget {
   const WorldStates({Key? key}) : super(key: key);
@@ -40,7 +41,7 @@ class _WorldStatesState extends State<WorldStates>
           child: Column(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * .01,
+                height: MediaQuery.of(context).size.height * .02,
               ),
               FutureBuilder(
                   future: statsServices.fecthWorldStatsRecords(),
@@ -59,12 +60,15 @@ class _WorldStatesState extends State<WorldStates>
                           PieChart(
                             dataMap: {
                               "Total":
-                                  double.parse(snapshot.data!.cases.toString()),
+                                  double.parse(snapshot.data!.cases!.toString()),
                               "Recovered":
-                                  double.parse(snapshot.data!.cases.toString()),
+                                  double.parse(snapshot.data!.cases!.toString()),
                               "Death":
-                                  double.parse(snapshot.data!.cases.toString()),
+                                  double.parse(snapshot.data!.cases!.toString()),
                             },
+                            chartValuesOptions: const ChartValuesOptions(
+                              showChartValuesInPercentage: true,
+                            ),
                             chartRadius:
                                 MediaQuery.of(context).size.width / 3.2,
                             legendOptions: const LegendOptions(
@@ -78,36 +82,58 @@ class _WorldStatesState extends State<WorldStates>
                           Padding(
                             padding: EdgeInsets.symmetric(
                                 vertical:
-                                    MediaQuery.of(context).size.height * .09),
+                                    MediaQuery.of(context).size.height * .05),
                             child: Card(
                               child: Column(
                                 children: [
                                   ReusableRow(
                                     title: 'total',
-                                    value: '200',
+                                    value: snapshot.data!.cases.toString(),
                                   ),
                                   ReusableRow(
-                                    title: 'total',
-                                    value: '200',
+                                    title: 'Death',
+                                    value: snapshot.data!.deaths.toString(),
                                   ),
                                   ReusableRow(
-                                    title: 'total',
-                                    value: '200',
+                                    title: 'Recovered',
+                                    value: snapshot.data!.recovered.toString(),
+                                  ),
+                                  ReusableRow(
+                                    title: 'Active Cases',
+                                    value: snapshot.data!.active.toString(),
+                                  ),
+                                  ReusableRow(
+                                    title: 'Critical cases',
+                                    value: snapshot.data!.critical.toString(),
+                                  ),
+                                  ReusableRow(
+                                    title: 'Today Death',
+                                    value: snapshot.data!.todayDeaths.toString(),
+                                  ),
+                                  ReusableRow(
+                                    title: 'Today Recovered',
+                                    value: snapshot.data!.todayRecovered.toString(),
                                   ),
                                 ],
                               ),
                             ),
                           ),
-                          Container(
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Color(0xff1aa260),
-                              borderRadius: BorderRadius.circular(10),
+                            GestureDetector(
+                              onTap:(){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => CountriesList()));
+                    },
+
+                            child: Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: Color(0xff1aa260),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Center(
+                                child: Text("Track Countries"),
+                              ),
                             ),
-                            child: Center(
-                              child: Text("Track Countries"),
-                            ),
-                          )
+                          ),
                         ],
                       );
                     }
@@ -129,7 +155,7 @@ class ReusableRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10, left: 10, bottom: 10, right: 10),
+      padding: const EdgeInsets.only(top: 10, left: 20, bottom: 10, right: 20),
       child: Column(
         children: [
           Row(
