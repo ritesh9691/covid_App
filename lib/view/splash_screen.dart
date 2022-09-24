@@ -17,6 +17,10 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
       duration: const Duration(seconds: 2),
       vsync: this)..repeat();
   @override
+  // void dispose() {
+  //   super.dispose();
+  //   _controller.dispose();
+  // }
   void initState() {
     // TODO: implement initState
     super.initState();

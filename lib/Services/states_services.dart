@@ -21,4 +21,48 @@ return WorlsStatsModel.fromJson(data);
 throw Exception('Error');
     }
   }
+  Future<WorlsStatsModel> AllCountry()async{
+    var data;
+    final response = await http.get(Uri.parse(AppUrl.countryList));
+
+    if(response.statusCode == 200){
+      data = jsonDecode(response.body);
+      print("data has loaded");
+      print(data);
+     return WorlsStatsModel.fromJson(data);
+    }else{
+     // print("error $e")
+      throw Exception('Error');
+    }
+  }
+// Future<List<dynamic>> countryListApi() async{
+  //   var data;
+  //   final response = await http.get(Uri.parse(AppUrl.countryList));
+  //   if(response.statusCode == 200){
+  //
+  //     data = jsonDecode(response.body);
+  //     print("data has loaded");
+  //     print(data);
+  //     return data;
+  //   }else{
+  //     print(data);
+  //     throw Exception('Error');
+  //   }
+  // }
+//   // Future<WorlsStatsModel> fecthWorldStatsRecords()async{
+//   List ?data;
+// Future< List<dynamic>>?
+//  // getData() async{
+//     try{
+//       final response = await http.get(Uri.parse("AppUrl.countrylist"));
+//       if(response.statusCode == 200) {
+//         data = json.decode(response.body);
+//         print(data);
+//         print("data has loaded");
+//       }
+//      // setState((){});
+//     }catch(e){
+//       print("Error: $e");
+//     }
+//   }
 }
